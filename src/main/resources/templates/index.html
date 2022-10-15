@@ -6,24 +6,38 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        <h1>Listado de Cliente</h1>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="cliente : ${clientes}">
-                    <td th:text="${cliente.nombre}"></td>
-                    <td th:text="${cliente.apellidos}"></td>
-                    <td th:text="${cliente.correo}"></td>
-                    <td th:text="${cliente.telefono}"></td>
-                </tr>
-            </tbody>
-        </table>
+        <header th:replace="layout/plantilla :: header"/>
+        <h2>Listado de Clientes</h2>
+        <br/>
+        <a th:href="@{/nuevoCliente}">Nuevo Cliente</a>
+        <br/>
+        <div th:if="${clientes != null and !clientes.empty}">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Correo</th>
+                        <th>Telefono</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.nombre}"></td>
+                        <td th:text="${cliente.apellidos}"></td>
+                        <td th:text="${cliente.correo}"></td>
+                        <td th:text="${cliente.telefono}"></td>
+                        <td><a th:href="@{/modificarCliente/} + ${cliente.idCliente}">Modificar</a></td>
+                        <td><a th:href="@{/eliminarCliente/} + ${cliente.idCliente}">Eliminar</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${clientes == null or clientes.empty}">
+            La lista de clientes esta vacia!
+        </div>
+        <footer th:replace="layout/plantilla :: footer"/>
     </body>
 </html>
