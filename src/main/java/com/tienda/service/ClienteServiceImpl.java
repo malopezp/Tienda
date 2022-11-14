@@ -46,4 +46,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     }
 
+    @Override
+    public List<Cliente> getPorApellidos(String apellidos) {
+        return clienteDao.findByApellidos(apellidos);
+    }
+
 }

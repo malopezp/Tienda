@@ -25,6 +25,19 @@ public class ClienteController {
         return "/cliente/modificar";
     }
 
+    @GetMapping("/cliente/buscar")
+    public String buscarClienteMain(Cliente cliente) {
+        return "/cliente/buscar";
+    }
+
+    @GetMapping("/cliente/buscarPorApellidos")
+    public String buscarCliente(Model model, String apellidos) {
+//        var clientes = clienteService.getPorApellidos("Castro Mora");
+        var clientes = clienteService.getPorApellidos(apellidos.toLowerCase());
+        model.addAttribute("clientes", clientes);
+        return "/cliente/buscarPorApellidos";
+    }
+
     @PostMapping("/cliente/guardar")
     public String guardarCliente(Cliente cliente) {
         clienteService.save(cliente);

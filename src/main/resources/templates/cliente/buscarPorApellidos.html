@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TechShop</title>
+        <meta charset="UTF-8">
+        <link href="/css/menu.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"/>
+        <div class="contenido">
+            <br/>
+            <a th:href="@{/cliente/listado}">Regresar</a>
+            <br/>
+            <br/>
+            <br/>
+            <h2>Resultados de clientes por apellidos: </h2>
+            <br/>
+            <br/>
+            <br/>
+            <div th:if="${clientes != null and !clientes.empty}">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>Límite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${clientes}">
+                            <td th:text="${item.nombre}"></td>
+                            <td th:text="${item.apellidos}"></td>
+                            <td th:text="${item.correo}"></td>
+                            <td th:text="${item.telefono}"></td>
+                            <td th:text="${#numbers.formatDecimal(item.credito.limite, 3, 2)}" 
+                                style="text-align: right"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${clientes == null or clientes.empty}">
+                No existen resultados!
+            </div>
+        </div>
+        <footer th:replace="layout/plantilla :: footer"/>
+    </body>
+</html>
