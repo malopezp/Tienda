@@ -10,19 +10,19 @@
         <header th:replace="layout/plantilla :: header"/>
         <div class="contenido">
             <br/>
-            <h2>Listado de Artículos</h2>
+            <h2 th:text="#{articulo.titulo}">Listado de Artículos</h2>
             <br/>
-            <a th:href="@{/articulo/nuevo}">Nuevo Artículo<a/>
+            <a th:href="@{/articulo/nuevo}">[[#{articulo.nuevo}]]<a/>
                 <div th:if="${articulos != null and !articulos.empty}">
                     <table border="1">
                         <thead>
                             <tr>
-                                <th>Descripción</th>
-                                <th>Precio</th>
-                                <th>Existencias</th>
-                                <th>Activo</th>
-                                <th>Modificar</th>
-                                <th>Eliminar</th>
+                                <th th:text="#{articulo.descripcion}">Descripción</th>
+                                <th th:text="#{articulo.precio}">Precio</th>
+                                <th th:text="#{articulo.existencias}">Existencias</th>
+                                <th th:text="#{articulo.activo}">Activo</th>
+                                <th th:text="#{accion.actualizar}">Modificar</th>
+                                <th th:text="#{accion.eliminar}">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,13 +31,13 @@
                                 <td th:text="${#numbers.formatDecimal(item.precio, 3, 2)}" style="text-align: right"></td>
                                 <td th:text="${item.existencias}" style="text-align: center"></td>
                                 <td><input type="checkbox" name="activo" th:checked="${item.activo}" disabled="true"/></td>
-                                <td><a th:href="@{/articulo/modificar/} + ${item.idArticulo}">Modificar</a></td>
-                                <td><a th:href="@{/eliminarArticulo/} + ${item.idArticulo}">Eliminar</a></td>
+                                <td><a th:href="@{/articulo/modificar/} + ${item.idArticulo}" th:text="#{accion.actualizar}">Modificar</a></td>
+                                <td><a th:href="@{/eliminarArticulo/} + ${item.idArticulo}" th:text="#{accion.eliminar}">Eliminar</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div th:if="${articulos == null or articulos.empty}">
+                <div th:if="${articulos == null or articulos.empty}" th:text="#{articulo.no_mostrar}">
                     La lista de artículos esta vacía!
                 </div>
         </div>

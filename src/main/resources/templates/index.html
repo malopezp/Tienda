@@ -10,27 +10,28 @@
         <header th:replace="layout/plantilla :: header"/>
         <div class="contenido">
             <br/>
-            <h2>Nuestros Artículos</h2>
+            <h2 th:text="#{index.titulo}">Nuestros Artículos</h2>
             <br/>
             <br/>
             <div th:if="${articulos != null and !articulos.empty}">
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>Descripción</th>
-                            <th>Precio</th>
+                            <th th:text="#{articulo.descripcion}">Descripción</th>
+                            <th th:text="#{articulo.precio}">Precio</th>
+                            <th th:text="#{articulo.comprar}">Comprar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="item : ${articulos}">
                             <td th:text="${item.descripcion}"></td>
                             <td th:text="${#numbers.formatDecimal(item.precio, 3, 1)}"></td>
-                            <td><a th:href="@{/carrito/agregar/} + ${item.idArticulo}">Agregar</a></td>
+                            <td><a th:href="@{/carrito/agregar/} + ${item.idArticulo}" th:text="#{accion.agregar}">Agregar</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div th:if="${articulos == null or articulos.empty}">
+            <div th:if="${articulos == null or articulos.empty}" th:text="#{articulo.no_mostrar}">
                 La lista de artículos esta vacía!
             </div>
             <footer th:replace="layout/plantilla :: footer"/>

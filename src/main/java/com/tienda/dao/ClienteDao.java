@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ClienteDao extends CrudRepository<Cliente, Long> {
     
-    public List<Cliente> findByApellidos(String apellidos);
+    public List<Cliente> findByApellidosIgnoreCase(String apellidos);
 
 }
