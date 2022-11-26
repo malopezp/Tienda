@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
     <head>
         <title>TechShop</title>
         <meta charset="UTF-8"/>
@@ -9,7 +11,7 @@
         <header th:fragment="header" class="header">
             <nav class ="nav">
                 <a th:href="@{/}" class="logo nav-link">TechShop</a>
-                <ul class="nav-menu">
+                <ul class="nav-menu" sec:authorize="hasRole('ROLE_VENDEDOR')">
                     <li class="nav-menu-item">
                         <a class="nav-menu-link nav-link" th:href="@{/cliente/listado}"
                            th:text="#{plantilla.clientes}">Clientes</a></li>
@@ -19,15 +21,22 @@
                     <li class="nav-menu-item">
                         <a class="nav-menu-link nav-link" th:href="@{/articulo/listado}"
                            th:text="#{plantilla.articulos}">Artículos</a></li>
+                    <li class="nav-menu-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-menu-link nav-link" th:href="@{/admin/listado}" th:text="#{plantilla.admin}">Admin</a></li>
                 </ul> 
             </nav>
         </header>
 
         <footer th:fragment="footer" class="footer">
-            <p>&COPY [[#{plantilla.derechos}]]
+            <div>&COPY [[#{plantilla.derechos}]]
                 <a th:href="@{/(lang=es)}">ES</a> |
-                <a th:href="@{/(lang=en)}">EN</a>
-            </p>
+                <a th:href="@{/(lang=en)}">EN</a> | 
+                [[#{plantilla.tusuario}]]:<span sec:authentication="name">xx</span> |
+                [[#{plantilla.troles}]]:<span sec:authentication="principal.authorities">s</span> |
+                <form method="POST" th:action="@{/logout}" style="display: inline">
+                    <a href="#" onclick="this.parentNode.submit();">Logout</a>
+                </form>
+            </div>
         </footer>
     </body>
 </html>

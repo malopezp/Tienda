@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://wwww.thymeleaf.org" 
+      xmlns:sec="http://thymeleaft.org/extras/spring-security">
     <head>
         <title>TechShop</title>
         <meta charset="UTF-8">
@@ -28,8 +30,8 @@
                                     <th th:text="#{cliente.correo}">Correo</th>
                                     <th th:text="#{cliente.telefono}">Telefono</th>
                                     <th th:text="#{cliente.limite}">Límite</th>
-                                    <th th:text="#{accion.actualizar}">Modificar</th>
-                                    <th th:text="#{accion.eliminar}">Eliminar</th>
+                                    <th th:text="#{accion.actualizar}" sec:authorize="hasRole('ROLE_ADMIN')">Modificar</th>
+                                    <th th:text="#{accion.eliminar}" sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,8 +42,8 @@
                                     <td th:text="${item.telefono}"></td>
                                     <td th:text="${#numbers.formatDecimal(item.credito.limite, 3, 2)}" 
                                         style="text-align: right"></td>
-                                    <td><a th:href="@{/cliente/modificar/} + ${item.idCliente}" th:text="#{accion.actualizar}">Modificar</a></td>
-                                    <td><a th:href="@{/eliminarCliente/} + ${item.idCliente}" th:text="#{accion.eliminar}">Eliminar</a></td>
+                                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/cliente/modificar/} + ${item.idCliente}" th:text="#{accion.actualizar}">Modificar</a></td>
+                                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminarCliente/} + ${item.idCliente}" th:text="#{accion.eliminar}">Eliminar</a></td>
                                 </tr>
                             </tbody>
                         </table>
