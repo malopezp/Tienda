@@ -3,55 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://wwww.thymeleaf.org" 
       xmlns:sec="http://thymeleaft.org/extras/spring-security">
-    <head>
+    <head th:replace="layout/plantilla :: head">
         <title>TechShop</title>
-        <meta charset="UTF-8">
-        <link href="/css/menu.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header"/>
-        <div class="contenido">
-            <br/>
-            <h2 th:text="#{cliente.titulo}">Listado de Clientes</h2>
-            <br/>
-            <br/>
-            <a th:href="@{/cliente/nuevo}">[[#{cliente.nuevo}]]<a/>
-                <br/>  
-                <br/>  
-                <a th:href="@{/cliente/buscar}">Búsqueda de Clientes<a/>
-                    <br/>
-                    <br/>
-                    <div th:if="${clientes != null and !clientes.empty}">
-                        <table border="1">
-                            <thead>
-                                <tr>
-                                    <th th:text="#{cliente.nombre}">Nombre</th>
-                                    <th th:text="#{cliente.apellidos}">Apellidos</th>
-                                    <th th:text="#{cliente.correo}">Correo</th>
-                                    <th th:text="#{cliente.telefono}">Telefono</th>
-                                    <th th:text="#{cliente.limite}">Límite</th>
-                                    <th th:text="#{accion.actualizar}" sec:authorize="hasRole('ROLE_ADMIN')">Modificar</th>
-                                    <th th:text="#{accion.eliminar}" sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="item : ${clientes}">
-                                    <td th:text="${item.nombre}"></td>
-                                    <td th:text="${item.apellidos}"></td>
-                                    <td th:text="${item.correo}"></td>
-                                    <td th:text="${item.telefono}"></td>
-                                    <td th:text="${#numbers.formatDecimal(item.credito.limite, 3, 2)}" 
-                                        style="text-align: right"></td>
-                                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/cliente/modificar/} + ${item.idCliente}" th:text="#{accion.actualizar}">Modificar</a></td>
-                                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminarCliente/} + ${item.idCliente}" th:text="#{accion.eliminar}">Eliminar</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div th:if="${clientes == null or clientes.empty}" th:text="#{cliente.no_mostrar}">
-                        La lista de clientes esta vacía!
-                    </div>
-                    </div>
-                    <footer th:replace="layout/plantilla :: footer"/>
-                    </body>
-                    </html>
+        <header th:replace="layout/plantilla :: header" />
+
+        <a th:href="@{/cliente/buscar}">Búsqueda de Clientes<a/>
+        
+        <section th:replace="cliente/fragmentosCliente :: botonesAgregar"/>
+        <section th:replace="cliente/fragmentosCliente :: agregarCliente"/>
+        <section th:replace="cliente/fragmentosCliente :: listadoClientes"/>
+
+        <footer th:replace="layout/plantilla :: footer" />
+</html>

@@ -3,47 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://wwww.thymeleaf.org" 
       xmlns:sec="http://thymeleaft.org/extras/spring-security">
-    <head>
+    <head th:replace="layout/plantilla :: head">
         <title>TechShop</title>
-        <meta charset="UTF-8">
-        <link href="/css/menu.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header"/>
-        <div class="contenido">
-            <br/>
-            <h2 th:text="#{articulo.titulo}">Listado de Artículos</h2>
-            <br/>
-            <a th:href="@{/articulo/nuevo}">[[#{articulo.nuevo}]]<a/>
-                <div th:if="${articulos != null and !articulos.empty}">
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th th:text="#{articulo.descripcion}">Descripción</th>
-                                <th th:text="#{articulo.precio}">Precio</th>
-                                <th th:text="#{articulo.existencias}">Existencias</th>
-                                <th th:text="#{articulo.activo}">Activo</th>
-                                <th th:text="#{accion.actualizar}">Modificar</th>
-                                <th th:text="#{accion.eliminar}">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="item : ${articulos}">
-                                <td th:text="${item.descripcion}"></td>
-                                <td th:text="${#numbers.formatDecimal(item.precio, 3, 2)}" style="text-align: right"></td>
-                                <td th:text="${item.existencias}" style="text-align: center"></td>
-                                <td><input type="checkbox" name="activo" th:checked="${item.activo}" disabled="true"/></td>
-                                <td><a th:href="@{/articulo/modificar/} + ${item.idArticulo}" th:text="#{accion.actualizar}">Modificar</a></td>
-                                <td><a th:href="@{/eliminarArticulo/} + ${item.idArticulo}" th:text="#{accion.eliminar}">Eliminar</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div th:if="${articulos == null or articulos.empty}" th:text="#{articulo.no_mostrar}">
-                    La lista de artículos esta vacía!
-                </div>
-        </div>
-        <footer th:replace="layout/plantilla :: footer"/>
-    </body>
-</html>
+        <header th:replace="layout/plantilla :: header" />
 
+        <section th:replace="articulo/fragmentosArticulo :: botonesAgregar"/>
+        <section th:replace="articulo/fragmentosArticulo :: agregarArticulo"/>
+        <section th:replace="articulo/fragmentosArticulo :: listadoArticulos"/>
+
+        <footer th:replace="layout/plantilla :: footer" />
+</html>
