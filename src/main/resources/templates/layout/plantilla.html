@@ -39,11 +39,11 @@
                                    th:text="#{plantilla.usuarios}">Usuarios</a>
                             </li>
                         </ul>
-                        <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
+                        <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
                             <li class="nav-item mr-3">
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-user"></i>
-                                    <span th:text="#{plantilla.bienvenido}">Bievenido:</span>
+                                    [[#{plantilla.bienvenido}]]:
                                     <span sec:authentication="name">Usuario</span>
                                 </a>
                             </li>
@@ -51,6 +51,18 @@
                                 <form method="POST" th:action="@{/logout}">
                                     <a href="#" onclick="this.parentNode.submit();" class="nav-link">
                                         <i class="fas fa-user-times"></i> [[#{plantilla.logout}]]
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
+                            <li class="nav-item mr-3">
+                                <form method="POST" 
+                                      th:action="@{/login}">
+                                    <a href="#"
+                                       onclick="this.parentNode.submit();"
+                                       class="nav-link">
+                                       <i class="fas fa-user-times"></i> [[#{login.login}]]
                                     </a>
                                 </form>
                             </li>
